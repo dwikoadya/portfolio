@@ -2,7 +2,6 @@
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
-var logger = require("morgan");
 
 // Library import
 const morgan = require("morgan");
@@ -16,12 +15,12 @@ const xss = require("xss-clean");
 
 // Local Import
 const AppError = require("./utils/appError")
+const errorMiddleware = require("./middlewares/errorMiddleware")
 
 var userRouter = require("./routes/users");
 
 var app = express();
 
-app.use(logger("dev"));
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use(cookieParser());
