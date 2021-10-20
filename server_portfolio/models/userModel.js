@@ -42,9 +42,9 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please confirm your password!"],
     validate: {
       validator: function (el) {
-        return el === this.pasword;
+        return el === this.password;
       },
-      message: "Pasword are not the same!",
+      message: "Password are not the same!",
     },
   },
   role: {
@@ -67,9 +67,9 @@ userSchema.pre("save", async function (next) {
     return next();
   }
 
-  this.password = await bcrypt.hash(this.password, process.env.BCRYPT_SALT);
+  this.password = await bcrypt.hash(this.password, Number(process.env.BCRYPT_SALT));
   this.passwordConfirm = undefined;
-  next;
+  next();
 });
 
 userSchema.method.isPasswordCorrect = async function (password, userPassword) {
