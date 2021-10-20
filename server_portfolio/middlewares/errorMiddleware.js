@@ -38,6 +38,7 @@ const handleCastErrorDB = (err) => {
   return new AppError(message, 400);
 };
 
+
 const handleDuplicateFieldsDB = (err) => {
   const message = Object.keys(err.keyValue)
     .map(
@@ -54,7 +55,7 @@ const handleValidationErrorDB = (err) => {
   return new AppError(message, 400);
 };
 
-module.exports = (err, res, req, next) => {
+module.exports = (err, req, res, next) => {
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
 
