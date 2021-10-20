@@ -30,28 +30,16 @@ const createAndSendToken = (user, statusCode, req, res) => {
   });
 };
 
-exports.signup = asyncHandler(async (req, res) => {
-  const {
-    firstname,
-    lastname,
-    address,
-    birthdate,
-    email,
-    username,
-    password,
-    passwordConfirm,
-  } = req.body;
+exports.signup = asyncHandler(async (req, res, next) => {
   const newUser = await User.create({
-    firstName: firstname,
-    lastName: lastname,
-    address: address,
-    birthdate: birthdate,
-    email: email,
-    username: username,
-    password: password,
-    passwordConfirm: passwordConfirm,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    address: req.body.address,
+    email: req.body.email,
+    username: req.body.username,
+    password: req.body.password,
+    passwordConfirm: req.body.passwordConfirm,
   });
-
   res.status(200).json({
     status: "success",
     data: newUser,
